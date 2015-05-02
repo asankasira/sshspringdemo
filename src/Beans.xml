@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="helloWorld" class="com.asa.home.HelloWorld">
+    	<property name="message" value="Welcome, Asanka" />
+    </bean>
+    
+<!-- <bean id="shape" class="com.asa.drawings.Circle">
+    	<property name="text" value="A large Circle"></property>
+    </bean> -->
+    <alias name="shape" alias="shape-alias"/>
+    
+    <bean id="shape" class="com.asa.drawings.Traingle">
+    	<property name="type" value="A right-angled traingle"></property>
+    </bean>
+    
+    <bean id="contrustShape" class="com.asa.drawings.Circle">
+    	<constructor-arg type="java.lang.String" value="Smaller" />
+    	<constructor-arg type="int" value="14"/>
+    </bean>
+    
+	<!-- Object Injection -->
+    <bean id="car" class="com.asa.vehicle.Car">
+    	<property name="wheel" ref="whl" />
+    	<property name="frontWheel">
+			<!-- Inner Bean definition -->
+    		<bean class="com.asa.vehicle.Wheel">
+    			<property name="wheelBrand" value="MRF front"></property>
+    		</bean>
+    	</property>
+    </bean>
+    
+    <bean id="whl" class="com.asa.vehicle.Wheel">
+    	<property name="wheelBrand" value="BridgeStone" />
+    </bean>
+    
+    <bean id="shape-trian" class="com.asa.drawings.Traingle">
+    	<property name="type" value="Equilaterl"></property>
+    	<property name="point">
+    		<bean class="java.awt.Point">
+    			<constructor-arg index="1" value="14" />
+    			<constructor-arg index="0" value="32" />
+    		</bean>
+    	</property>
+    </bean>
+    
+   <!--  Initialization of Collections -->
+    <bean id="sqr" class="com.asa.drawings.Square">
+    	<property name="type" value="Not-Equal"></property>
+    	<property name="points">
+    		<list>
+    			<ref bean="zeroPoint" />
+    			<ref bean="point1" />
+    			<ref bean="point2" />
+    			<ref bean="point3" />
+    		</list>
+    	</property>
+    </bean>
+    
+   <bean id="zeroPoint" class="java.awt.Point">
+   		<constructor-arg value="0"/>
+   		<constructor-arg value="0"/>
+   </bean>
+   
+   <bean id="point1" class="java.awt.Point">
+   		<constructor-arg value="3"/>
+   		<constructor-arg value="5"/>
+   </bean>
+   
+   <bean id="point2" class="java.awt.Point" >
+   		<constructor-arg value="7"/>
+   		<constructor-arg value="11"/>
+   </bean>
+   
+   <bean id="point3" class="java.awt.Point">
+   		<constructor-arg value="2"/>
+   		<constructor-arg value="6"/>
+   </bean>
+   
+ <!--   Bean auto-wiring  -->
+ <bean id="rect" class="com.asa.drawings.Rectangle" autowire="byName">
+ 	<property name="type" value="Special Square"></property>
+ </bean>
+ 
+ <bean id="house" class="com.asa.home.House" autowire="byType">
+ </bean>
+ 
+ <bean id="bath" class="com.asa.home.Bathroom">
+ 	<property name="fittings" value="German"/>
+ 	<property name="year" value="1912"/>
+ </bean>
+    
+</beans>
